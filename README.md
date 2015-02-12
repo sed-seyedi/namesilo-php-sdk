@@ -492,7 +492,7 @@ else
 
 
 #### Report Bugs
-To report a bug simply send me a quick message @seyedip
+Send message to @seyedip
 
 <br/><br/>
 Be happy, <br/>
