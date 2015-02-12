@@ -2,7 +2,7 @@
 A standalone, fully documented, bugless, fast and super easy to use PHP SDK to register domain names.
 
 
-#### Quick start guide
+#### Quick start
 
 Set `$ns_key` to your api key provided by namesilo and then include namesilo.php in your application.
 
@@ -32,7 +32,16 @@ Once enabled, all `ns_*`  functions   `print_r()`  their request and return valu
 
 > never turn debugging on in  production.
 
+#### Usage example
+Here you can retrieve the lock status for exmaple.com
 
+```php
+$lock_status = ns_lock_status('example.com');
+if($lock_status)
+    echo 'domain is lock';
+else
+    echo 'domain unlock';
+```
 
 
 
