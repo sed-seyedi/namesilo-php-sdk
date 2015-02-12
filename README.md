@@ -1,9 +1,8 @@
 # namesilo-php-sdk
-A standalone, fully documented, bugless, fast and super easy to use PHP SDK to register domain names.
+A standalone, fully documented, bugless, fast and super easy to use PHP SDK for registering domain names.
 
 
 #### Quick start
-
 Set `$ns_key` to your api key provided by namesilo and then include namesilo.php in your application.
 
 #### Setting API key
