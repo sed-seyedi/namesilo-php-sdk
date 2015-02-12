@@ -75,7 +75,9 @@ $ns_error is a global variable set by ns_domain_lock()
 <a name="ns_create_contact"/>
 #### ns_create_contact()
 Use this function to create a contact info and then use the contact id retuned by this function to associate it with a new domain registration.
+
 > returns created contact id on success and false on failure.
+
 ```php
 $contact_id = ns_create_contact(
       $fn, // first name
