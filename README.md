@@ -11,10 +11,15 @@ $ns_key = 'your api key goes here';
 Then include namesilo.php in your application.
 
 
-**PRO TIPS:**
-- all functions (commands) start with ns_
-- all global variables start with $ns_
-- there is no dependency
+
+### Debug mode
+
+To enable debugging change the value of $ns_debug to true.
+```php
+$ns_debug = false;
+```
+Once enabled, all ns_* functions   `print_r()`  their request and return value.
+
 
 
 
