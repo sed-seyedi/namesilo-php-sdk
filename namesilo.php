@@ -179,7 +179,7 @@ function ns_list_domains(){
 	return $result['reply']['domains']['domain'];
 }
 function ns_get_nameservers($domain){
-	$domain_info = ns_get_domain_info($domain);
+	$domain_info = ns_get_domain_info($domain); 
 	if(!$domain_info)
 		return false;
 	if(is_array($domain_info['nameservers']))

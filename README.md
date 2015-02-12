@@ -44,7 +44,7 @@ else
     echo 'domain is unlock';
 ```
 
-#### Usage example 2
+#### Usage example 2 with error catching
 Locking example.com:
 
 ```php
