@@ -250,7 +250,7 @@ function ns_get_account_balance(){
 }
 // main functions
 function ns_request($command,$options=''){
-	global $ns_url,$ns_key,$ns_debug;
+	global $ns_url,$ns_key,$ns_debug,$ns_error;
 	$created_options = '';
 	if(!empty($options)){
 		foreach($options as $pair){
