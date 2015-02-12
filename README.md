@@ -62,7 +62,7 @@ if($result){
 $ns_error is a global variable set by ns_domain_lock()
 </blockquote>
 <blockquote>
-	if you call ns_domain_lock() inside another function make sure to define $ns_error as a global variable <code>global $ns_error</code>
+	if you call ns_domain_lock() inside another function make sure to define $ns_error as a global variable <code>global $ns_error;</code>
 </blockquote>
 
 #### List of functions
