@@ -1,7 +1,22 @@
 <?php
+/*
+    Copyright (C) 2015  <Seyed Seyedi doing business as SunSed,LLC>
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 $ns_url = 'http://sandbox.namesilo.com/api/'; // for development
 //$ns_url = 'https://www.namesilo.com/api/'; // for production
-$ns_key = 'the key provided by namesilo';
+$ns_key = 'your api key provided by namesilo';
 $ns_error = ''; // used for internal errors keep it empty!
 $ns_debug = false; // weather to turn debuging on or off
 function ns_create_contact($fn,$ln,$ad,$cy,$st,$zp,$ct,$em,$ph){
