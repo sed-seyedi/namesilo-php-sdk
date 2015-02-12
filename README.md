@@ -67,7 +67,7 @@ $ns_error is a global variable set by ns_domain_lock()
 
 #### List of functions
 
-- [ns_create_contact()](#ns_create_contact):  create a new contact id for later use.
+- [ns_create_contact()](#ns_create_contact):  create a new contact id. Used for new domain registration.
 - [ns_delete_contact()](#ns_delete_contact): useful for deleting a contact if registration fails
 - [ns_register_domain_by_contact_id()](#ns_register_domain_by_contact_id())
 - [ns_register_domain()](#ns_register_domain): create a new contact id and register domain at once (not recommended)
@@ -127,8 +127,12 @@ if($result){
 }
 ```
 
-> This function will automatically attemp to delete the contact if registration fails. 
-
+<blockquote>
+This function will automatically attemp to delete the contact if registration fails.
+</blockquote>
+<blockquote>
+ Please remember that the only contact profiles that can be deleted are those that are not the account default and are not associated with any active domains or order profiles.
+</blockquote>
 
 <a name="ns_register_domain"/>
 #### ns_register_domain()
@@ -213,6 +217,8 @@ if($result){
     echo 'fail reason: ' . $ns_error;
 }
 ```
+> Please remember that the only contact profiles that can be deleted are those that are not the account default and are not associated with any active domains or order profiles.
+
 
 <a name="ns_add_dns_record"/>
 #### ns_add_dns_record()
