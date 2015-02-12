@@ -69,4 +69,4 @@ $ns_error is a global variable set by ns_domain_lock()
 - ns_create_contact()  create a new contact id for later use.
 - ns_update_nameservers()
 - ns_update_contact_by_domain()
-- ![got_to_top()][#top]
+- [got_to_top()](#top)
