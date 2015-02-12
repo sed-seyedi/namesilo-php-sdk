@@ -5,7 +5,9 @@ A standalone, fully documented, bugless, fast and super easy to use PHP SDK to r
 ## Quick start guide
 
 1. In namesilo.php file set your api key.
->  $ns_key = 'your api key goes here';
+```php
+$ns_key = 'your api key goes here';
+```
 2. Just include namesilo.php in your application.
 
 

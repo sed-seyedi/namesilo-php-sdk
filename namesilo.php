@@ -18,7 +18,7 @@ $ns_url = 'http://sandbox.namesilo.com/api/'; // for development
 //$ns_url = 'https://www.namesilo.com/api/'; // for production
 $ns_key = 'your api key provided by namesilo';
 $ns_error = ''; // used for internal errors keep it empty!
-$ns_debug = false; // weather to turn debuging on or off
+$ns_debug = false; // weather to turn debuging on or off 
 function ns_create_contact($fn,$ln,$ad,$cy,$st,$zp,$ct,$em,$ph){
 	$result = ns_request('contactAdd',[
 		['fn',$fn], // first name
