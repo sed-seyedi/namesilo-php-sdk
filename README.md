@@ -2,28 +2,28 @@
 A standalone, fully documented, bugless, fast and super easy to use PHP SDK to register domain names.
 
 
-### Quick start guide
+#### Quick start guide
 
 Set `$ns_key` to your api key provided by namesilo and then include namesilo.php in your application.
 
-### Setting API key
+#### Setting API key
 In namesilo.php file set your api key:
 ```php
 $ns_key = 'your api key goes here';
 ```
 > To receive a sandbox API key for testing, please contact namesilo.
 
-### Production vs Development
+#### Production vs Development
 For development edit namesilo.php and set
 ```php
 $ns_url = 'http://sandbox.namesilo.com/api/';
 ```
 For production set
 ```php
-//$ns_url = 'https://www.namesilo.com/api/'; 
+$ns_url = 'https://www.namesilo.com/api/'; 
 ```
 
-### Debugging 
+#### Debugging 
 To enable debugging edit namesilo.php and set $ns_debug to true.
 ```php
 $ns_debug = true;
