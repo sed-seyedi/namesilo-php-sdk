@@ -495,5 +495,5 @@ else
 To report a bug simply send me a quick message @seyedip
 
 <br/><br/>
-Be happy,
+Be happy, <br/>
 **Sed**
