@@ -41,7 +41,7 @@ $lock_status = ns_lock_status('example.com');
 if($lock_status)
     echo 'domain is lock';
 else
-    echo 'domain unlock';
+    echo 'domain is unlock';
 ```
 
 #### Usage example 2
@@ -63,3 +63,9 @@ $ns_error is a global variable set by ns_domain_lock()
 <blockquote>
 	if you call ns_domain_lock() inside another function make sure to define $ns_error as a global variable <code>global $ns_error</code>
 </blockquote>
+
+#### List of functions
+
+- ns_create_contact()  create a new contact id for later use.
+- ns_update_nameservers()
+- ns_update_contact_by_domain()
