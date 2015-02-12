@@ -69,7 +69,7 @@ $ns_error is a global variable set by ns_domain_lock()
 
 - [ns_create_contact()](#ns_create_contact):  create a new contact id. Used for new domain registration.
 - [ns_delete_contact()](#ns_delete_contact): useful for deleting a contact if registration fails
-- [ns_register_domain_by_contact_id()](#ns_register_domain_by_contact_id())
+- [ns_register_domain_by_contact_id()](#ns_register_domain_by_contact_id)
 - [ns_register_domain()](#ns_register_domain): create a new contact id and register domain at once (not recommended)
 - [ns_update_nameservers()](#ns_update_nameservers) 
 - [ns_update_contact_by_domain()](#ns_update_contact_by_domain)
