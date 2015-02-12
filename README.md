@@ -1,7 +1,7 @@
 # namesilo-php-sdk
 A standalone, fully documented, bugless, fast and super easy to use PHP SDK to register domain names.
 
-
+<a name="top"></a>
 #### Quick start
 
 Set `$ns_key` to your api key provided by namesilo and then include namesilo.php in your application.
@@ -69,3 +69,4 @@ $ns_error is a global variable set by ns_domain_lock()
 - ns_create_contact()  create a new contact id for later use.
 - ns_update_nameservers()
 - ns_update_contact_by_domain()
+- ![got_to_top()][#top]
