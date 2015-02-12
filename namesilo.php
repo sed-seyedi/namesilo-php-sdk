@@ -97,7 +97,6 @@ function ns_register_domain($domain,$fn,$ln,$ad,$cy,$st,$zp,$ct,$em,$ph,$years=1
         ['contact_id',$contact_id],				
 	]);
 	if(!ns_request_successp($result)){
-		ns_delete_contact($contact_id);
 		return false;
 	}
 	return true;
