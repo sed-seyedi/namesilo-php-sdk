@@ -162,7 +162,7 @@ if($contact_id){
 
 <a name="ns_update_contact_by_domain"/>
 #### ns_update_contact_by_domain()
-> returns true on success and false failure.
+> returns true on success and false on failure.
 
 ```php
 $result = ns_update_contact_by_domain(
