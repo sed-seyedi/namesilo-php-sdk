@@ -55,6 +55,7 @@ if(ns_domain_lock('example.com')){
 }
 ```
 > ns_domain_lock() retruns true on success and false on failure.
+
 > $ns_error is a global variable set by ns_domain_lock()
-> $ns_error is empty if there is no error.
+
 > if you call ns_domain_lock() inside another function make sure to define $ns_error as global variable `global $ns_error`
