@@ -4,21 +4,34 @@ A standalone, fully documented, bugless, fast and super easy to use PHP SDK to r
 
 ### Quick start guide
 
-First In namesilo.php file set your api key:
+Set `$ns_key` to your api key provided by namesilo and then include namesilo.php in your application.
+
+### Setting API key
+In namesilo.php file set your api key:
 ```php
 $ns_key = 'your api key goes here';
 ```
-Then include namesilo.php in your application.
+> To receive a sandbox API key for testing, please contact namesilo.
 
-
-
-### Debug mode
-
-To enable debugging change the value of $ns_debug to true.
+### Production vs Development
+For development edit namesilo.php and set
 ```php
-$ns_debug = false;
+$ns_url = 'http://sandbox.namesilo.com/api/';
 ```
-Once enabled, all ns_* functions   `print_r()`  their request and return value.
+For production set
+```php
+//$ns_url = 'https://www.namesilo.com/api/'; 
+```
+
+### Debugging 
+To enable debugging edit namesilo.php and set $ns_debug to true.
+```php
+$ns_debug = true;
+```
+Once enabled, all `ns_*`  functions   `print_r()`  their request and return value.
+
+> never turn debugging on in  production.
+
 
 
 
