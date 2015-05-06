@@ -276,6 +276,7 @@ function ns_request($command,$options=''){
 	return $result;
 }
 function xml_to_arr($str){
+	$str = trim($str);
 	$xml = simplexml_load_string($str);
 	$json = json_encode($xml);
 	$array = json_decode($json,TRUE);
