@@ -1,99 +1,107 @@
 # namesilo-php-sdk
-A standalone, fully documented, bugless, fast and super easy to use PHP SDK for registering domain names.
 
+Simple PHP SDK for registering domain names using Namesilo.com.
 
-#### Quick start
-Set `$ns_key` to your api key provided by namesilo and then include namesilo.php in your application.
+### Dependencies
 
-#### Setting API key
-In namesilo.php file set your api key:
-```php
-$ns_key = 'your api key goes here';
+* php-xml package.
+
+Install in Debian:
+
 ```
+sudo aptitude install php7.0-xml
+```
+
+### Quick start
+
+Create an instance of the Namesilo class.
+
 > To receive a sandbox API key for testing, please contact namesilo.
 
-#### Production vs Development
-For development edit namesilo.php and set
 ```php
-$ns_url = 'http://sandbox.namesilo.com/api/';
-```
-For production set
-```php
-$ns_url = 'https://www.namesilo.com/api/'; 
+#### create a Namesilo object with production key
+$ns = new Namesilo('your api key');
+
+#### create a Namesilo object with sandox key
+$ns = new Namesilo('your api key',true);
+
+#### turn Debugging on (if you want to fix an issue with this library)
+$ns = new Namesilo('your api key',true,true);
+
+#### Simple usage
+try{
+    $ns->is_domain_available('example.com');
+}catch(Exception $e){
+    #### print error message
+    echo $e.getMessage();
+}
 ```
 
-#### Debugging 
-To enable debugging edit namesilo.php and set $ns_debug to true.
+### Debugging
+
+To enable debugging edit namesilo.php provide a third argument to Namesilo() and set it to `tre`.
+
 ```php
-$ns_debug = true;
+$ns = new Namesilo('your api key',true,true);
 ```
-Once enabled, all `ns_*`  functions   `print_r()`  their request and return value.
+
+Once enabled, all functions (methods)  `print_r()`  their request and return value.
 
 > never turn debugging on in  production.
 
-#### Usage example
+### Usage example
+
 Retrieve the lock status for exmaple.com
 
 ```php
-$lock_status = ns_lock_status('example.com');
-
-if($lock_status)
+try{
+    $lock_status = $ns->lock_status('example.com');
+}catch(Exception $e){
+    echo $e->getMessage();
+}
+if($lock_status){
     echo 'domain is lock';
-else
-    echo 'domain is unlock';
-```
-
-#### Usage example 2 with error catching
-Locking example.com:
-
-```php
-$result = ns_domain_lock('example.com'); // attempt to lock exmaple.com
-if($result){
-   echo 'Successfully locked the domain.';
 }else{
-   echo 'The reason it failed: ' . $ns_error;
+    echo 'domain is unlock';
 }
 ```
-<blockquote>
- ns_domain_lock() retruns true on success and false on failure.
-</blockquote>
-<blockquote>
-$ns_error is a global variable set by ns_domain_lock()
-</blockquote>
-<blockquote>
-	if you call ns_domain_lock() inside another function make sure to define $ns_error as a global variable <code>global $ns_error;</code>
-</blockquote>
 
-#### List of functions
+### List of methods
 
-- [ns_create_contact()](#ns_create_contact):  create a new contact id. Used for new domain registration.
-- [ns_delete_contact()](#ns_delete_contact): useful for deleting a contact if registration fails
-- [ns_register_domain_by_contact_id()](#ns_register_domain_by_contact_id)
-- [ns_register_domain()](#ns_register_domain): create a new contact id and register domain at once (not recommended)
-- [ns_update_nameservers()](#ns_update_nameservers) 
-- [ns_update_contact_by_domain()](#ns_update_contact_by_domain)
-- [ns_add_dns_record()](#ns_add_dns_record)
-- [ns_get_dns_records()](#ns_get_dns_records): returns an array of dns records
-- [ns_delete_dns_record()](#ns_delete_dns_record)
-- [ns_is_domain_available()](#ns_is_domain_available)
-- [ns_send_auth_code()](#ns_send_auth_code): Have the EPP transfer code for the domain emailed to the administrative contact.
-- [ns_get_contact_by_id()](#ns_get_contact_by_id)
-- [ns_list_domains()](#ns_list_domains)
-- [ns_get_nameservers()](#ns_get_nameservers)
-- [ns_privacy_status()](#ns_privacy_status)
-- [ns_add_privacy()](#ns_add_privacy)
-- [ns_remove_privacy()](#ns_remove_privacy)
-- [ns_get_domain_info()](#ns_get_domain_info)
-- [ns_get_account_balance()](#ns_get_account_balance)
+> NOTE: make sure that you capture possible errors with a `try {} catch {}` as shown in the above examples.
 
-<a name="ns_create_contact"/>
-#### ns_create_contact()
+- [create_contact()](#create_contact):  create a new contact id. Used for new domain registration.
+- [delete_contact()](#delete_contact): useful for deleting a contact if registration fails
+- [register_domain_by_contact_id()](#register_domain_by_contact_id)
+- [register_domain()](#register_domain): create a new contact id and register domain at once (not recommended)
+- [update_nameservers()](#update_nameservers)
+- [update_contact_by_domain()](#update_contact_by_domain)
+- [add_dns_record()](#add_dns_record)
+- [get_dns_records()](#get_dns_records): returns an array of dns records
+- [delete_dns_record()](#delete_dns_record)
+- [is_domain_available()](#is_domain_available)
+- [send_auth_code()](#send_auth_code): Have the EPP transfer code for the domain emailed to the administrative contact.
+- [get_contact_by_id()](#get_contact_by_id)
+- [list_domains()](#list_domains)
+- [get_nameservers()](#get_nameservers)
+- [privacy_status()](#privacy_status)
+- [add_privacy()](#add_privacy)
+- [remove_privacy()](#remove_privacy)
+- [get_domain_info()](#get_domain_info)
+- [get_account_balance()](#get_account_balance)
+
+
+<a name="create_contact"/>
+
+### create_contact()
+
+
 Use this function to create a new contact-id and then use the contact-id retuned by this function to associate it with a new domain registration.
 
 > returns created contact id on success and false on failure.
 
 ```php
-$contact_id = ns_create_contact(
+$contact_id = $ns->create_contact(
       $fn, // first name
       $ln, // last name
       $ad, // address
@@ -104,43 +112,39 @@ $contact_id = ns_create_contact(
       $em, // email
       $ph  // phone
 );
-if($contact_id){
-    echo 'new contact id: ' . $contact_id;
-}else{
-    echo 'could not create contact id because: ' . $ns_error;
-}
 ```
 
 
-<a name="ns_register_domain_by_contact_id"/>
-#### ns_register_domain_by_contact_id()
+
+<a name="register_domain_by_contact_id"/>
+
+### register_domain_by_contact_id()
+
 > returns true on success and false on failure.
 
 ```php
-$result = ns_register_domain_by_contact_id($domain,$contact_id,$years=1);
-
-if($result){
-    echo 'success';
-}else{
-    echo 'fail reason: ' . $ns_error;
-}
+$result = $ns->register_domain_by_contact_id($domain,$contact_id,$years=1);
 ```
 
 <blockquote>
-This function will automatically attemp to delete the contact if registration fails.
-</blockquote>
-<blockquote>
- Please remember that the only contact profiles that can be deleted are those that are not the account default and are not associated with any active domains or order profiles.
+    This function will automatically attemp to delete the contact if registration fails.
 </blockquote>
 
-<a name="ns_register_domain"/>
-#### ns_register_domain()
+<blockquote>
+    Default profile and profiles that are associated with any active domains cannot be deleted.
+</blockquote>
+
+
+<a name="register_domain"/>
+
+### register_domain()
+
 Create a new contact-id and register a domain for it at once. This method is not recommended.
 
-> returns created contact id on success and false on failure.
+> returns true on success and false on failure.
 
 ```php
-$result = ns_register_domain(
+$ns->register_domain(
       $domain, // example.com
       $fn, // first name
       $ln, // last name
@@ -153,22 +157,16 @@ $result = ns_register_domain(
       $ph,  // phone
       $years = 1
 );
-if($contact_id){
-    echo 'success';
-}else{
-    echo 'failure reason: ' . $ns_error;
-}
 ```
 
+<a name="update_contact_by_domain"/>
 
+### update_contact_by_domain()
 
-
-<a name="ns_update_contact_by_domain"/>
-#### ns_update_contact_by_domain()
 > returns true on success and false on failure.
 
 ```php
-$result = ns_update_contact_by_domain(
+$contact_id = $ns->update_contact_by_domain(
       $domain, // example.com
       $fn, // first name
       $ln, // last name
@@ -180,95 +178,85 @@ $result = ns_update_contact_by_domain(
       $em, // email
       $ph  // phone
 );
-if($contact_id){
-    echo 'Success';
-}else{
-    echo 'failure reason: ' . $ns_error;
-}
 ```
 
+<a name="update_nameservers"/>
 
-<a name="ns_update_nameservers"/>
-#### ns_update_nameservers()
+### update_nameservers()
+
 Change the NameServers associated with one of your domains.
+
 > returns true on success and false on success and false on failure.
 
 ```php
-$result = ns_update_nameservers('example.com','ns1.namesilo.com','ns2.namesilo.com');
-
-if($result){
-    echo 'success';
-}else{
-    echo 'fail reason: ' . $ns_error;
-}
+$result = $ns->update_nameservers('example.com','ns1.namesilo.com','ns2.namesilo.com');
 ```
 
-<a name="ns_delete_contact"/>
-#### ns_delete_contact()
+
+<a name="delete_contact"/>
+
+### delete_contact()
+
 > returns true on success and false on failure.
 
 ```php
-$result = ns_delete_contact($contact_id);
-
-if($result){
-    echo 'success';
-}else{
-    echo 'fail reason: ' . $ns_error;
-}
+$ns->delete_contact($contact_id);
 ```
+
 > Please remember that the only contact profiles that can be deleted are those that are not the account default and are not associated with any active domains or order profiles.
 
 
-<a name="ns_add_dns_record"/>
-#### ns_add_dns_record()
+<a name="add_dns_record"/>
+
+### add_dns_record()
+
 > returns true on success and false on failure.
 
 ```php
-$result = ns_add_dns_record($domain,$type,$host,$value,$distance='',$ttl='');
-if($result){
-    echo 'success';
-}else{
-    echo 'fail reason: ' . $ns_error;
-}
+$ns->add_dns_record($domain,$type,$host,$value,$distance='',$ttl='');
 ```
+
 <blockquote>
-$type possible values are "A", "AAAA", "CNAME", "MX" and "TXT"
+    $type possible values are "A", "AAAA", "CNAME", "MX" and "TXT"
 </blockquote>
+
 <blockquote>
-$host  The hostname for the new record (there is no need to include the ".DOMAIN")
+    $host  The hostname for the new record (there is no need to include the ".DOMAIN")
 </blockquote>
+
 <blockquote>
-$value 
-	<ul>
-		<li>A - The IPV4 Address</li>
-		<li>AAAA - The IPV6 Address</li>
-		<li>CNAME - The Target Hostname</li>
-		<li>MX - The Target Hostname</li>
-		<li>TXT - The Text</li>				
-	</ul>
+$value
+    <ul>
+        <li>A - The IPV4 Address</li>
+        <li>AAAA - The IPV6 Address</li>
+        <li>CNAME - The Target Hostname</li>
+        <li>MX - The Target Hostname</li>
+        <li>TXT - The Text</li>
+    </ul>
 </blockquote>
+
 <blockquote>
-$distance: Only used for MX (default is 10 if not provided)
+    $distance: Only used for MX (default is 10 if not provided)
 </blockquote>
+
 <blockquote>
-$ttl: The TTL for the new record (default is 7207 if not provided)
+    $ttl: The TTL for the new record (default is 7207 if not provided)
 </blockquote>
 
 
-<a name="ns_get_dns_records"/>
-#### ns_get_dns_records()
+<a name="get_dns_records"/>
+
+### get_dns_records()
+
 > returns an array of records on success and false on failure.
 
 ```php
-$result = ns_get_dns_records($domain);
-if($result){
-    echo 'success';
-}else{
-    echo 'fail reason: ' . $ns_error;
-}
+$ns->get_dns_records($domain);
 ```
 
 Sample `print_r()` of successfull return value:
+
+> Again, make sure you capture exceptions.
 
 ```
 Array
@@ -287,81 +275,83 @@ Array
 ```
 
 
-<a name="ns_delete_dns_record"/>
-#### ns_delete_dns_record()
+<a name="delete_dns_record"/>
+
+### delete_dns_record()
 
 > returns true on success and false on failure.
 
 ```php
-$result = ns_delete_dns_record($domain,$record_id);
-if($result){
-    echo 'success';
-}else{
-    echo 'fail reason: ' . $ns_error;
-}
+$ns->delete_dns_record($domain,$record_id);
 ```
 
-<a name="ns_is_domain_available"/>
-#### ns_is_domain_available()
+
+<a name="is_domain_available"/>
+
+### is_domain_available()
 
 > possible return values: 'available', 'invalid', 'unavailable' and false.
 
 ```php
-$result = ns_is_domain_available($domain);
-if($result == 'available'){
-    echo 'domain is available';
-}elseif($result == 'invalid'){
-    echo 'pleas check your domain';
-}elseif($result == 'unavailable'){
-    echo 'domain is not available';
-}else{
-    echo 'fail reason: ' . $ns_error;
+try{
+    $result = $ns->is_domain_available($domain);
+    if($result == 'available'){
+        echo 'domain is available';
+    }elseif($result == 'invalid'){
+        echo 'pleas check your domain';
+    }elseif($result == 'unavailable'){
+        echo 'domain is not available';
+    }else{
+        echo 'failed';
+    }
+}catch(Exception $e){
+    echo $e->getMessage();
 }
 ```
 
 
-<a name="ns_send_auth_code"/>
-#### ns_send_auth_code()
+<a name="send_auth_code"/>
+
+### send_auth_code()
 
 > returns true on success and false on failure.
 
 ```php
-$result = ns_send_auth_code($domain);
-if($result){
-    echo 'success';
-}else{
-    echo 'fail reason: ' . $ns_error;
-}
+ns->send_auth_code($domain);
 ```
 
-<a name="ns_get_contact_by_id"/>
-#### ns_get_contact_by_id()
+
+<a name="get_contact_by_id"/>
+
+### get_contact_by_id()
 
 > returns contact info on success and false on failure.
 
 ```php
-$result = ns_get_contact_by_id($contact_id);
-if($result){
-    echo 'success';
-}else{
-    echo 'fail reason: ' . $ns_error;
-}
+$ns->get_contact_by_id($contact_id);
 ```
 
-<a name="ns_list_domains"/>
-#### ns_list_domains()
+<a name="list_domains"/>
+
+### list_domains()
 
 > returns an array of domains on success and false on failure.
 
 ```php
-$result = ns_list_domains();
-if($result){
-    echo 'success';
-}else{
-    echo 'fail reason: ' . $ns_error;
+try{
+    $result = $ns->list_domains();
+    if($result){
+        echo 'success';
+    }else{
+        echo 'failed';
+    }
+}catch(Exception $e){
+    echo $e.getMessage();
 }
 ```
+
 Sample return value:
+
 ```
 Array
 (
@@ -371,20 +361,14 @@ Array
 )
 ```
 
-<a name="ns_get_nameservers"/>
-#### ns_get_nameservers()
+<a name="get_nameservers"/>
+
+### get_nameservers()
 
 > returns an array of nameservers on success and false on failure.
 
-```php
-$result = ns_get_nameservers($domain);
-if($result){
-    echo 'success';
-}else{
-    echo 'fail reason: ' . $ns_error;
-}
-```
 Sample return value:
+
 ```
 Array
 (
@@ -392,60 +376,51 @@ Array
     [1] => NS2.NAMESILO.COM
 )
 ```
-> Namesilo returns the namesevrers in capital letters.
 
+> Note: Namesilo returns the namesevrers in capital letters.
 
-<a name="ns_privacy_status"/>
-#### ns_privacy_status()
+<a name="privacy_status"/>
+
+### privacy_status()
+
 Retrieves the privacy status.
 
 ```php
-$result = ns_privacy_status($domain);
-
+$result = $ns->privacy_status($domain);
 if($result)
     echo 'Privacy is enabled';
 else
     echo 'Privacy is disabled';
 ```
 
-<a name="ns_add_privacy"/>
-#### ns_add_privacy()
+<a name="add_privacy"/>
+
+### add_privacy()
 
 ```php
-$result = ns_add_privacy($domain);
-
-if($result)
-    echo 'Privacy enabled';
-else
-    echo 'could not add privacy because: ' . $ns_error;
+$result = $ns->add_privacy($domain);
 ```
 
+<a name="remove_privacy"/>
 
-<a name="ns_remove_privacy"/>
-#### ns_remove_privacy()
+### remove_privacy()
 
 ```php
-$result = ns_remove_privacy($domain);
-
-if($result)
-    echo 'Privacy disabled';
-else
-    echo 'could not disable privacy because: ' . $ns_error;
+$result = $ns->remove_privacy($domain);
 ```
 
-<a name="ns_get_domain_info"/>
-#### ns_get_domain_info()
+<a name="get_domain_info"/>
+
+### get_domain_info()
+
 > returns domain-info-array on success and false on failure.
 
 ```php
-$result = ns_get_domain_info($domain);
-
-if($result)
-    echo 'success';
-else
-    echo 'failed because because: ' . $ns_error;
+$ns->get_domain_info($domain);
 ```
+
 Sample return value:
+
 ```
 Array
 (
@@ -481,24 +456,12 @@ Array
 )
 ```
 
+<a name="get_account_balance"/>
 
-<a name="ns_get_account_balance"/>
-#### ns_get_account_balance()
+### get_account_balance()
+
 > returns account balance on success and false on failure.
 
 ```php
-$result = ns_get_account_balance();
-
-if($result)
-    echo 'success';
-else
-    echo 'failed because because: ' . $ns_error;
+$result = $ns->get_account_balance();
 ```
-
-
-#### Report Bugs
-Send message to @seyedip
-
-<br/><br/>
-Be happy, <br/>
-**Sed**
