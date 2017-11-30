@@ -33,7 +33,7 @@ try{
     $ns->is_domain_available('example.com');
 }catch(Exception $e){
     #### print error message
-    echo $e.getMessage();
+    echo $e->getMessage();
 }
 ```
 
